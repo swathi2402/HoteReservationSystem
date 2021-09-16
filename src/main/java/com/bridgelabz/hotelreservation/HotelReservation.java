@@ -9,8 +9,8 @@ import java.util.Optional;
 public class HotelReservation {
 	static List<Hotel> hotelList = new ArrayList<Hotel>();
 
-	public boolean addHotel(String hotelName, double rateForWeekday, double rateForWeekend) {
-		Hotel hotel = new Hotel(hotelName, rateForWeekday, rateForWeekend);
+	public boolean addHotel(String hotelName, int rating, double rateForWeekday, double rateForWeekend) {
+		Hotel hotel = new Hotel(hotelName, rating, rateForWeekday, rateForWeekend);
 		boolean isAdded = hotelList.add(hotel);
 		return isAdded;
 
