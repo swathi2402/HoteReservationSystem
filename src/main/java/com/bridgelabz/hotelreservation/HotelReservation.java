@@ -1,7 +1,6 @@
 package com.bridgelabz.hotelreservation;
 
 import java.time.LocalDate;
-//import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -19,9 +18,29 @@ public class HotelReservation {
 
 	public Hotel findCheapHotel(LocalDate startDate, LocalDate endDate) {
 
-//		long daysStaying = ChronoUnit.DAYS.between(startDate, endDate);
-		Optional<Hotel> cheapestRate = hotelList.stream().min(Comparator.comparingDouble(Hotel::getRateForWeekday));
-		return cheapestRate.get();
+		int weekdayCount = 0;
+		int weekendCount = 0;
+		Optional<Hotel> cheapestWeekdayHotel = hotelList.stream()
+				.min(Comparator.comparingDouble(Hotel::getRateForWeekday));
+		Optional<Hotel> cheapestWeekendHotel = hotelList.stream()
+				.min(Comparator.comparingDouble(Hotel::getRateForWeekend));
+
+		for (LocalDate date = startDate; date.isBefore(endDate.plusDays(1)); date = date.plusDays(1)) {
+			if (date.getDayOfWeek().getValue() <= 5)
+				weekdayCount++;
+			else
+				weekendCount++;
+		}
+		
+		double price1 = (weekdayCount * cheapestWeekdayHotel.get().getRateForWeekday())
+				+ (weekendCount * cheapestWeekdayHotel.get().getRateForWeekend());
+		double price2 = (weekdayCount * cheapestWeekendHotel.get().getRateForWeekday())
+				+ (weekendCount * cheapestWeekendHotel.get().getRateForWeekend());
+		
+		if (price1 < price2)
+			return cheapestWeekdayHotel.get();
+		else
+			return cheapestWeekendHotel.get();
 
 	}
 
