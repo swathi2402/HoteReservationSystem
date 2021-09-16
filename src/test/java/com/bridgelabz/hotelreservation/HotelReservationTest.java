@@ -25,17 +25,20 @@ public class HotelReservationTest {
 	@Test
 	public void WhenGivenRidgewood_AddHotel_AndReturnTrue() {
 		HotelReservation hoteReservation = new HotelReservation();
-		boolean isAdded = hoteReservation.addHotel("Ridgewood", 5, 20.0, 150.0);
+		boolean isAdded = hoteReservation.addHotel("Ridgewood", 5, 220.0, 150.0);
 		Assert.assertTrue(isAdded);
 	}
 
 	@Test
 	public void WhenGivenHotelList_ShouldGive_CheapestHotelRate() {
 		HotelReservation hoteReservation = new HotelReservation();
+		hoteReservation.addHotel("Lakewood", 3, 110.0, 90.0);
+		hoteReservation.addHotel("Bridgewood", 4, 150.0, 50.0);
+		hoteReservation.addHotel("Ridgewood", 5, 220.0, 150.0);
 		LocalDate startDate = LocalDate.of(2021, Month.SEPTEMBER, 13);
 		LocalDate endDate = LocalDate.of(2021, Month.SEPTEMBER, 17);
 		Hotel hotel = hoteReservation.findCheapHotel(startDate, endDate);
-		Assert.assertEquals("Ridgewood", hotel.getHotelName());
+		Assert.assertEquals("Lakewood", hotel.getHotelName());
 	}
 
 }
