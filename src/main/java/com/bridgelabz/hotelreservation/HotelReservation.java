@@ -26,9 +26,10 @@ public class HotelReservation {
 		}
 		final int weekdays = weekdayCount;
 		final int weekends = weekendCount;
+
 		Hotel hotel = hotelList.stream().min((h1, h2) -> {
-			return ((int) h1.getRateForWeekday() * weekdays + (int) h1.getRateForWeekend() * weekends
-					- (int) h2.getRateForWeekday() * weekdays + (int) h2.getRateForWeekend() * weekends);
+			return ((int) (h1.getRateForWeekday() * weekdays + h1.getRateForWeekend() * weekends)
+					- (int) (h2.getRateForWeekday() * weekdays + h2.getRateForWeekend() * weekends));
 		}).orElse(null);
 
 		return hotel;
