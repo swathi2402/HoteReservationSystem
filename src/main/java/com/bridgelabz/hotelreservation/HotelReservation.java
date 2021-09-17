@@ -14,7 +14,7 @@ public class HotelReservation {
 
 	}
 
-	public Hotel findCheapHotel(LocalDate startDate, LocalDate endDate) {
+	public Hotel findCheapBestHotel(LocalDate startDate, LocalDate endDate) {
 		
 		int weekdayCount = 0;
 		int weekendCount = 0;
@@ -27,7 +27,9 @@ public class HotelReservation {
 		final int weekdays = weekdayCount;
 		final int weekends = weekendCount;
 
-		Hotel hotel = hotelList.stream().min((h1, h2) -> {
+		Hotel hotel = hotelList.stream()
+				.sorted((h1, h2) -> {return h2.getRating() - h1.getRating();})
+				.min((h1, h2) -> {
 			return ((int) (h1.getRateForWeekday() * weekdays + h1.getRateForWeekend() * weekends)
 					- (int) (h2.getRateForWeekday() * weekdays + h2.getRateForWeekend() * weekends));
 		}).orElse(null);
