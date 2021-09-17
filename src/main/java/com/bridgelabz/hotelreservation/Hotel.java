@@ -5,16 +5,37 @@ public class Hotel {
 	private int rating;
 	private double rateForWeekday;
 	private double rateForWeekend;
+	private double rewardRateForWeekday;
+	private double rewardRateForWeekend;
 
-	public Hotel(String hotelName, int rating, double rateForWeekday, double rateForWeekend) {
+	public Hotel(String hotelName, int rating, double rateForWeekday, double rateForWeekend,
+			double rewardRateForWeekday, double rewardRateForWeekend) {
 		super();
 		this.hotelName = hotelName;
 		this.rating = rating;
 		this.rateForWeekday = rateForWeekday;
 		this.rateForWeekend = rateForWeekend;
+		this.rewardRateForWeekday = rewardRateForWeekday;
+		this.rewardRateForWeekend = rewardRateForWeekend;
 	}
 
-	public String getHotelName() {
+		public double getRewardRateForWeekday() {
+		return rewardRateForWeekday;
+	}
+
+	public void setRewardRateForWeekday(double rewardRateForWeekday) {
+		this.rewardRateForWeekday = rewardRateForWeekday;
+	}
+
+	public double getRewardRateForWeekend() {
+		return rewardRateForWeekend;
+	}
+
+	public void setRewardRateForWeekend(double rewardRateForWeekend) {
+		this.rewardRateForWeekend = rewardRateForWeekend;
+	}
+
+		public String getHotelName() {
 		return hotelName;
 	}
 
