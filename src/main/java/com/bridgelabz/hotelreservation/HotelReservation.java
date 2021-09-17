@@ -1,14 +1,22 @@
 package com.bridgelabz.hotelreservation;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HotelReservation {
+	public enum CustomerType {
+
+		REGULAR_CUSTOMER, REWARD_CUSTOMER
+	}
+
 	static List<Hotel> hotelList = new ArrayList<Hotel>();
 
-	public boolean addHotel(String hotelName, int rating, double rateForWeekday, double rateForWeekend, double rewardRateForWeekday, double rewardRateForWeekend) {
-		Hotel hotel = new Hotel(hotelName, rating, rateForWeekday, rateForWeekend, rewardRateForWeekday, rewardRateForWeekend);
+	public boolean addHotel(String hotelName, int rating, double rateForWeekday, double rateForWeekend,
+			double rewardRateForWeekday, double rewardRateForWeekend) {
+		Hotel hotel = new Hotel(hotelName, rating, rateForWeekday, rateForWeekend, rewardRateForWeekday,
+				rewardRateForWeekend);
 		boolean isAdded = hotelList.add(hotel);
 		return isAdded;
 
@@ -42,6 +50,35 @@ public class HotelReservation {
 			return h2.getRating() - h1.getRating();
 		}).findFirst().orElse(null);
 		return bestHotel;
+	}
+
+	public Hotel findCheapBestHotelForReward(LocalDate startDate, LocalDate endDate,
+			CustomerType type) throws DateTimeException {
+
+		if (type == CustomerType.REWARD_CUSTOMER) {
+			int weekdayCount = 0;
+			int weekendCount = 0;
+			for (LocalDate date = startDate; date.isBefore(endDate.plusDays(1)); date = date.plusDays(1)) {
+				if (date.getDayOfWeek().getValue() <= 5)
+					weekdayCount++;
+				else
+					weekendCount++;
+			}
+			final int weekdays = weekdayCount;
+			final int weekends = weekendCount;
+
+			Hotel hotel = hotelList.stream().sorted((h1, h2) -> {
+				return h2.getRating() - h1.getRating();
+			}).min((h1, h2) -> {
+				return ((int) (h1.getRewardRateForWeekday() * weekdays + h1.getRewardRateForWeekend() * weekends)
+						- (int) (h2.getRewardRateForWeekday() * weekdays + h2.getRewardRateForWeekend() * weekends));
+			}).orElse(null);
+
+			return hotel;
+		} else {
+			return null;
+		}
+
 	}
 
 	public static void main(String[] args) {
