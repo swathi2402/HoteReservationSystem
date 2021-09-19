@@ -2,10 +2,13 @@ package com.bridgelabz.hotelreservation;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HotelReservation {
+
 	public enum CustomerType {
 
 		REGULAR_CUSTOMER, REWARD_CUSTOMER
@@ -22,7 +25,16 @@ public class HotelReservation {
 
 	}
 
-	public Hotel findCheapBestHotel(LocalDate startDate, LocalDate endDate) {
+	public Hotel findCheapBestHotel(String stringStartDate, String stringEndDate) {
+		LocalDate startDate;
+		LocalDate endDate;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMMuuuu");
+		try {
+			startDate = LocalDate.parse(stringStartDate, formatter);
+			endDate = LocalDate.parse(stringEndDate, formatter);
+		} catch (DateTimeParseException e) {
+			throw new HotelException(HotelException.ExceptionType.INVALID_DATE, "Enter a valid date");
+		}
 
 		int weekdayCount = 0;
 		int weekendCount = 0;
@@ -52,9 +64,17 @@ public class HotelReservation {
 		return bestHotel;
 	}
 
-	public Hotel findCheapBestHotelForReward(LocalDate startDate, LocalDate endDate,
-			CustomerType type) throws DateTimeException {
-
+	public Hotel findCheapBestHotelForReward(String stringStartDate, String stringEndDate, CustomerType type)
+			throws DateTimeException {
+		LocalDate startDate;
+		LocalDate endDate;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMMuuuu");
+		try {
+			startDate = LocalDate.parse(stringStartDate, formatter);
+			endDate = LocalDate.parse(stringEndDate, formatter);
+		} catch (DateTimeParseException e) {
+			throw new HotelException(HotelException.ExceptionType.INVALID_DATE, "Enter a valid date");
+		}
 		if (type == CustomerType.REWARD_CUSTOMER) {
 			int weekdayCount = 0;
 			int weekendCount = 0;
@@ -80,10 +100,4 @@ public class HotelReservation {
 		}
 
 	}
-
-	public static void main(String[] args) {
-
-		System.out.println("Welcom to Hotel Reservation System");
-	}
-
 }
