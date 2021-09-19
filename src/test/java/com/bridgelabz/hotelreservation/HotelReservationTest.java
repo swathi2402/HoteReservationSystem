@@ -84,6 +84,20 @@ public class HotelReservationTest {
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	@Test
+	public void WhenNullDateGiven_ShouldGiveException() {
+		HotelReservation hoteReservation = new HotelReservation();
+		String startDate = "11Sep2020";
+		String endDate = null;
+		try {
+			Hotel hotel = hoteReservation.findCheapBestHotelForReward(startDate, endDate, CustomerType.REWARD_CUSTOMER);
+			Assert.assertEquals("Ridgewood", hotel.getHotelName());
+		} catch (HotelException e) {
+			assertEquals(e.type, HotelException.ExceptionType.ENTERED_NULL);
+			System.out.println(e.getMessage());
+		}
+	}
 
 	@Test
 	public void WhenGivenHotelList_ShouldGive_HightestRatedHotelRate_ForRewardCustomer() {

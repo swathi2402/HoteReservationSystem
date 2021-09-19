@@ -34,6 +34,8 @@ public class HotelReservation {
 			endDate = LocalDate.parse(stringEndDate, formatter);
 		} catch (DateTimeParseException e) {
 			throw new HotelException(HotelException.ExceptionType.INVALID_DATE, "Enter a valid date");
+		} catch (NullPointerException e) {
+			throw new HotelException(HotelException.ExceptionType.ENTERED_NULL, "Entered null");
 		}
 
 		int weekdayCount = 0;
@@ -72,8 +74,12 @@ public class HotelReservation {
 		try {
 			startDate = LocalDate.parse(stringStartDate, formatter);
 			endDate = LocalDate.parse(stringEndDate, formatter);
+
 		} catch (DateTimeParseException e) {
 			throw new HotelException(HotelException.ExceptionType.INVALID_DATE, "Enter a valid date");
+
+		} catch (NullPointerException e) {
+			throw new HotelException(HotelException.ExceptionType.ENTERED_NULL, "Entered null");
 		}
 		if (type == CustomerType.REWARD_CUSTOMER) {
 			int weekdayCount = 0;
