@@ -5,15 +5,22 @@ import static org.junit.Assert.assertEquals;
 import java.time.LocalDate;
 import java.time.Month;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
-import com.bridgelabz.hotelreservation.HotelReservation.CustomerType;
+import com.bridgelabz.hotelreservation.HotelReservationImpl.CustomerType;
 
 public class HotelReservationTest {
 
+	HotelReservationIF hoteReservation = null;
+
+	@Before
+	public void setUp() throws Exception {
+		hoteReservation = new HotelReservationImpl();
+	}
+
 	@Test
 	public void WhenGivenBridgewood_AddHotel_AndReturnTrue() {
-		HotelReservation hoteReservation = new HotelReservation();
 		Hotel hotel = new Hotel();
 		hotel.setHotelName("Lakewood");
 		hotel.setRating(3);
@@ -27,7 +34,6 @@ public class HotelReservationTest {
 
 	@Test
 	public void WhenGivenName_AddHotel_AndReturnTrue() {
-		HotelReservation hoteReservation = new HotelReservation();
 		Hotel hotel = new Hotel();
 		hotel.setHotelName("Bridgewood");
 		hotel.setRating(4);
@@ -41,7 +47,6 @@ public class HotelReservationTest {
 
 	@Test
 	public void WhenGivenRidgewood_AddHotel_AndReturnTrue() {
-		HotelReservation hoteReservation = new HotelReservation();
 		Hotel hotel = new Hotel();
 		hotel.setHotelName("Ridgewood");
 		hotel.setRating(5);
@@ -55,7 +60,6 @@ public class HotelReservationTest {
 
 	@Test
 	public void WhenGivenHotelList_ShouldGive_CheapestHotelRate() {
-		HotelReservation hoteReservation = new HotelReservation();
 
 		Hotel hotel1 = new Hotel();
 		hotel1.setHotelName("Lakewood");
@@ -92,7 +96,6 @@ public class HotelReservationTest {
 
 	@Test
 	public void WhenGivenInvalidDate_ShouldGiveException() {
-		HotelReservation hoteReservation = new HotelReservation();
 
 		String startDate = "11Sp2020";
 		String endDate = "12Sep2020";
@@ -108,7 +111,6 @@ public class HotelReservationTest {
 
 	@Test
 	public void WhenGivenHotelList_ShouldGive_HightestRatedHotelRate() {
-		HotelReservation hoteReservation = new HotelReservation();
 		LocalDate startDate = LocalDate.of(2021, Month.SEPTEMBER, 10);
 		LocalDate endDate = LocalDate.of(2021, Month.SEPTEMBER, 11);
 		Hotel hotel = hoteReservation.findBestRatedHotel(startDate, endDate);
@@ -117,7 +119,6 @@ public class HotelReservationTest {
 
 	@Test
 	public void WhenGivenHotelListAndInvalidDate_ShouldGiveException() {
-		HotelReservation hoteReservation = new HotelReservation();
 		String startDate = "11Sep2020";
 		String endDate = "12Sp2020";
 		try {
@@ -131,7 +132,6 @@ public class HotelReservationTest {
 
 	@Test
 	public void WhenNullDateGiven_ShouldGiveException() {
-		HotelReservation hoteReservation = new HotelReservation();
 		String startDate = "11Sep2020";
 		String endDate = null;
 		try {
@@ -145,7 +145,6 @@ public class HotelReservationTest {
 
 	@Test
 	public void WhenGivenHotelList_ShouldGive_HightestRatedHotelRate_ForRewardCustomer() {
-		HotelReservation hoteReservation = new HotelReservation();
 		String startDate = "11Sep2020";
 		String endDate = "12Sep2020";
 		Hotel hotel = hoteReservation.findCheapBestHotelForReward(startDate, endDate, CustomerType.REWARD_CUSTOMER);
@@ -154,7 +153,6 @@ public class HotelReservationTest {
 
 	@Test
 	public void WhenGivenHotelList_ShouldGive_Null_ForRegularCustomer() {
-		HotelReservation hoteReservation = new HotelReservation();
 		String startDate = "11Sep2020";
 		String endDate = "12Sep2020";
 		Hotel hotel = hoteReservation.findCheapBestHotelForReward(startDate, endDate, CustomerType.REGULAR_CUSTOMER);

@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HotelReservation {
+public class HotelReservationImpl implements HotelReservationIF {
 
 	public enum CustomerType {
 
