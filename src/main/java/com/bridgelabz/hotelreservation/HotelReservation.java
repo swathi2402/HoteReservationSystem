@@ -16,12 +16,9 @@ public class HotelReservation {
 
 	static List<Hotel> hotelList = new ArrayList<Hotel>();
 
-	public boolean addHotel(String hotelName, int rating, double rateForWeekday, double rateForWeekend,
-			double rewardRateForWeekday, double rewardRateForWeekend) {
-		Hotel hotel = new Hotel(hotelName, rating, rateForWeekday, rateForWeekend, rewardRateForWeekday,
-				rewardRateForWeekend);
-		boolean isAdded = hotelList.add(hotel);
-		return isAdded;
+	public boolean addHotel(Hotel hotel) {
+
+		return hotelList.add(hotel);
 
 	}
 

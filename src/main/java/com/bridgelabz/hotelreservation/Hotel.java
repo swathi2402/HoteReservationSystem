@@ -8,18 +8,7 @@ public class Hotel {
 	private double rewardRateForWeekday;
 	private double rewardRateForWeekend;
 
-	public Hotel(String hotelName, int rating, double rateForWeekday, double rateForWeekend,
-			double rewardRateForWeekday, double rewardRateForWeekend) {
-		super();
-		this.hotelName = hotelName;
-		this.rating = rating;
-		this.rateForWeekday = rateForWeekday;
-		this.rateForWeekend = rateForWeekend;
-		this.rewardRateForWeekday = rewardRateForWeekday;
-		this.rewardRateForWeekend = rewardRateForWeekend;
-	}
-
-		public double getRewardRateForWeekday() {
+	public double getRewardRateForWeekday() {
 		return rewardRateForWeekday;
 	}
 
@@ -35,7 +24,7 @@ public class Hotel {
 		this.rewardRateForWeekend = rewardRateForWeekend;
 	}
 
-		public String getHotelName() {
+	public String getHotelName() {
 		return hotelName;
 	}
 
